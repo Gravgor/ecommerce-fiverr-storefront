@@ -1,9 +1,10 @@
 import { StoreGetProductsParams } from "@medusajs/medusa"
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
-
 import { getProductsList, getRegion } from "@lib/data"
+import ProductPreview from "./product-preview"
+import { ChevronLeft, ChevronRight } from "lucide-react"
+import { Button } from "@modules/layout/components/ui/button"
 
-import ProductPreview from "../product-preview"
 
 type RelatedProductsProps = {
   product: PricedProduct
@@ -20,7 +21,6 @@ export default async function RelatedProducts({
     return null
   }
 
-  // edit this function to define your related products logic
   const setQueryParams = (): StoreGetProductsParams => {
     const params: StoreGetProductsParams = {}
 
@@ -61,23 +61,29 @@ export default async function RelatedProducts({
   }
 
   return (
-    <div className="product-page-constraint">
-      <div className="flex flex-col items-center text-center mb-16">
-        <span className="text-base-regular text-gray-600 mb-6">
-          Related products
-        </span>
-        <p className="text-2xl-regular text-ui-fg-base max-w-lg">
-          You might also want to check out these products.
-        </p>
+    <div className="max-w-screen-xl mx-auto px-4 py-8">
+      <h2 className="text-2xl font-bold mb-6">You might also like</h2>
+      <div className="relative">
+        <div className="flex space-x-4 overflow-x-auto pb-4">
+          {productPreviews.map((productPreview) => (
+            <ProductPreview key={productPreview.id} product={productPreview} region={region} />
+          ))}
+        </div>
+        <Button
+          variant="outline"
+          size="icon"
+          className="absolute top-1/2 left-0 -translate-y-1/2 -translate-x-1/2 bg-white"
+        >
+          <ChevronLeft className="h-4 w-4" />
+        </Button>
+        <Button
+          variant="outline"
+          size="icon"
+          className="absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/2 bg-white"
+        >
+          <ChevronRight className="h-4 w-4" />
+        </Button>
       </div>
-
-      <ul className="grid grid-cols-2 small:grid-cols-3 medium:grid-cols-4 gap-x-6 gap-y-8">
-        {productPreviews.map((productPreview) => (
-          <li key={productPreview.id}>
-            <ProductPreview region={region} productPreview={productPreview} />
-          </li>
-        ))}
-      </ul>
     </div>
   )
 }

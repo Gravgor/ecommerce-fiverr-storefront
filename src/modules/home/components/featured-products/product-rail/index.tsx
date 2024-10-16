@@ -1,5 +1,6 @@
 import { Region } from "@medusajs/medusa"
 import { Text } from "@medusajs/ui"
+import { ChevronRight } from "lucide-react"
 
 import InteractiveLink from "@modules/common/components/interactive-link"
 import ProductPreview from "@modules/products/components/product-preview"
@@ -19,25 +20,28 @@ export default function ProductRail({
   }
 
   return (
-    <div className="content-container py-12 small:py-24">
-      <div className="flex justify-between mb-8">
-        <Text className="txt-xlarge">{collection.title}</Text>
-        <InteractiveLink href={`/collections/${collection.handle}`}>
-          View all
-        </InteractiveLink>
-      </div>
-      <ul className="grid grid-cols-2 small:grid-cols-3 gap-x-6 gap-y-24 small:gap-y-36">
-        {products &&
-          products.map((product) => (
-            <li key={product.id}>
-              <ProductPreview
-                productPreview={product}
-                region={region}
-                isFeatured
-              />
-            </li>
+    <div className="bg-gray-50 py-16 sm:py-24">
+      <div className="content-container">
+        <div className="flex justify-between items-center mb-8">
+          <Text className="text-2xl sm:text-3xl font-bold text-gray-900">{collection.title}</Text>
+          <InteractiveLink 
+            href={`/collections/${collection.handle}`}
+          >
+            View all
+            <ChevronRight className="ml-1 w-4 h-4" />
+          </InteractiveLink>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10">
+          {products.map((product) => (
+            <ProductPreview
+              key={product.id}
+              productPreview={product}
+              region={region}
+              isFeatured
+            />
           ))}
-      </ul>
+        </div>
+      </div>
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import { ProductCollection } from "@medusajs/medusa"
 import { Suspense } from "react"
+import { ChevronRight } from "lucide-react"
 
 import SkeletonProductGrid from "@modules/skeletons/templates/skeleton-product-grid"
 import RefinementList from "@modules/store/components/refinement-list"
@@ -20,20 +21,33 @@ export default function CollectionTemplate({
   const pageNumber = page ? parseInt(page) : 1
 
   return (
-    <div className="flex flex-col small:flex-row small:items-start py-6 content-container">
-      <RefinementList sortBy={sortBy || "created_at"} />
-      <div className="w-full">
-        <div className="mb-8 text-2xl-semi">
-          <h1>{collection.title}</h1>
+    <div className="bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="py-4 sm:py-8">
+          <div className="flex items-center justify-between mb-8">
+            <h1 className="text-3xl font-bold text-gray-900">{collection.title}</h1>
+            <div className="flex items-center text-sm text-gray-500">
+              <a href="/" className="hover:text-gray-700">Home</a>
+              <ChevronRight className="mx-2 h-4 w-4" />
+              <span className="font-medium text-gray-900">{collection.title}</span>
+            </div>
+          </div>
+          <div className="flex flex-col lg:flex-row lg:items-start">
+            <div className="w-full lg:w-64 mb-8 lg:mb-0">
+              <RefinementList sortBy={sortBy || "created_at"} />
+            </div>
+            <div className="flex-1 lg:ml-8">
+              <Suspense fallback={<SkeletonProductGrid />}>
+                <PaginatedProducts
+                  sortBy={sortBy || "created_at"}
+                  page={pageNumber}
+                  collectionId={collection.id}
+                  countryCode={countryCode}
+                />
+              </Suspense>
+            </div>
+          </div>
         </div>
-        <Suspense fallback={<SkeletonProductGrid />}>
-          <PaginatedProducts
-            sortBy={sortBy || "created_at"}
-            page={pageNumber}
-            collectionId={collection.id}
-            countryCode={countryCode}
-          />
-        </Suspense>
       </div>
     </div>
   )

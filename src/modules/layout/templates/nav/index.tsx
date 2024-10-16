@@ -1,69 +1,85 @@
-import { Suspense } from "react"
+import Link from "next/link"
+import { Search, Heart, ShoppingBag, User } from "lucide-react"
 
-import { listRegions } from "@lib/data"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
-import CartButton from "@modules/layout/components/cart-button"
-import SideMenu from "@modules/layout/components/side-menu"
+import { Button } from "@modules/layout/components/ui/button"
+import { getCart, getCollectionsList } from "@lib/data"
+import { cookies } from "next/headers"
 
-export default async function Nav() {
-  const regions = await listRegions().then((regions) => regions)
-
+export default async function Navbar() {
+  const collections = await getCollectionsList()
+  const cartId = cookies().get("_medusa_cart_id")?.value
+  if (!cartId) {
+    return null
+  }
+  const cart = await getCart(cartId)
+  const cartItemsLength = cart?.items.length
   return (
-    <div className="sticky top-0 inset-x-0 z-50 group">
-      <header className="relative h-16 mx-auto border-b duration-200 bg-white border-ui-border-base">
-        <nav className="content-container txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full h-full text-small-regular">
-          <div className="flex-1 basis-0 h-full flex items-center">
-            <div className="h-full">
-              <SideMenu regions={regions} />
-            </div>
-          </div>
-
-          <div className="flex items-center h-full">
+    <header className="sticky top-0 z-40 w-full bg-gradient-to-r from-white to-gray-50 border-b-2 border-black">
+      <div className="container mx-auto px-4">
+        <div className="flex h-16 items-center justify-between">
+          <div className="flex items-center space-x-4">
             <LocalizedClientLink
               href="/"
-              className="txt-compact-xlarge-plus hover:text-ui-fg-base uppercase"
-              data-testid="nav-store-link"
+              className="flex items-center space-x-2"
             >
-              Medusa Store
+              <span className="text-2xl font-extrabold text-gray-900">
+                Test shop
+              </span>
             </LocalizedClientLink>
           </div>
 
-          <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end">
-            <div className="hidden small:flex items-center gap-x-6 h-full">
-              {process.env.FEATURE_SEARCH_ENABLED && (
-                <LocalizedClientLink
-                  className="hover:text-ui-fg-base"
-                  href="/search"
-                  scroll={false}
-                  data-testid="nav-search-link"
-                >
-                  Search
-                </LocalizedClientLink>
-              )}
-              <LocalizedClientLink
-                className="hover:text-ui-fg-base"
-                href="/account"
-                data-testid="nav-account-link"
+          <nav className="hidden md:flex space-x-8">
+            {collections.collections.map((category) => (
+              <Link
+                key={category.title}
+                href={`/collections/${category.handle}`}
+                className="text-sm font-medium text-gray-700 hover:text-black transition-colors duration-200"
               >
-                Account
-              </LocalizedClientLink>
-            </div>
-            <Suspense
-              fallback={
-                <LocalizedClientLink
-                  className="hover:text-ui-fg-base flex gap-2"
-                  href="/cart"
-                  data-testid="nav-cart-link"
-                >
-                  Cart (0)
-                </LocalizedClientLink>
-              }
-            >
-              <CartButton />
-            </Suspense>
+                {category.title}
+              </Link>
+            ))}
+          </nav>
+
+          <div className="flex items-center space-x-4">
+            <LocalizedClientLink href="/account">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-gray-700 hover:text-black transition-colors duration-200"
+              >
+                <User className="h-5 w-5" />
+                <span className="sr-only">Account</span>
+              </Button>
+            </LocalizedClientLink>
+
+            <LocalizedClientLink href="/wishlist">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-gray-700 hover:text-black transition-colors duration-200"
+              >
+                <Heart className="h-5 w-5" />
+                <span className="sr-only">Wishlist</span>
+              </Button>
+            </LocalizedClientLink>
+
+            <LocalizedClientLink href="/cart">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="relative text-gray-700 hover:text-black transition-colors duration-200"
+              >
+                <ShoppingBag className="h-5 w-5" />
+                <span className="sr-only">Cart</span>
+                <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-black text-xs text-white flex items-center justify-center">
+                  {cartItemsLength}
+                </span>
+              </Button>
+            </LocalizedClientLink>
           </div>
-        </nav>
-      </header>
-    </div>
+        </div>
+      </div>
+    </header>
   )
 }

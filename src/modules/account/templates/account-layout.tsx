@@ -1,7 +1,8 @@
-import React from "react"
+"use client"
 
+import React, { useState, useEffect } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import UnderlineLink from "@modules/common/components/interactive-link"
-
 import AccountNav from "../components/account-nav"
 import { Customer } from "@medusajs/medusa"
 
@@ -14,28 +15,56 @@ const AccountLayout: React.FC<AccountLayoutProps> = ({
   customer,
   children,
 }) => {
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  const containerVariants = {
+    hidden: { opacity: 0, height: 0 },
+    visible: { 
+      opacity: 1, 
+      height: "auto",
+      transition: { 
+        duration: 0.5,
+        when: "beforeChildren",
+        staggerChildren: 0.2
+      }
+    },
+    exit: { opacity: 0, height: 0, transition: { duration: 0.3 } }
+  }
+
+  const contentVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  }
+
   return (
     <div className="flex-1 small:py-12" data-testid="account-page">
-      <div className="flex-1 content-container h-full max-w-5xl mx-auto bg-white flex flex-col">
-        <div className="grid grid-cols-1  small:grid-cols-[240px_1fr] py-12">
-          <div>{customer && <AccountNav customer={customer} />}</div>
-          <div className="flex-1">{children}</div>
-        </div>
-        <div className="flex flex-col small:flex-row items-end justify-between small:border-t border-gray-200 py-12 gap-8">
-          <div>
-            <h3 className="text-xl-semi mb-4">Got questions?</h3>
-            <span className="txt-medium">
-              You can find frequently asked questions and answers on our
-              customer service page.
-            </span>
-          </div>
-          <div>
-            <UnderlineLink href="/customer-service">
-              Customer Service
-            </UnderlineLink>
-          </div>
-        </div>
-      </div>
+      <AnimatePresence>
+        {isClient && (
+          <motion.div
+            className="flex-1 max-w-5xl mx-auto bg-white flex flex-col"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            <motion.div 
+              className="grid grid-cols-1 small:grid-cols-[240px_1fr] py-12"
+              variants={contentVariants}
+            >
+              <motion.div variants={contentVariants}>
+                {customer && <AccountNav customer={customer} />}
+              </motion.div>
+              <motion.div className="flex-1" variants={contentVariants}>
+                {children}
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

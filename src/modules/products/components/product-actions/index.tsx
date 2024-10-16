@@ -159,14 +159,12 @@ export default function ProductActions({
             </div>
           )}
         </div>
-
-        <ProductPrice product={product} variant={variant} region={region} />
-
+        <p>{product.description}</p>
         <Button
           onClick={handleAddToCart}
           disabled={!inStock || !variant || !!disabled || isAdding}
           variant="primary"
-          className="w-full h-10"
+          className="w-full bg-black text-white py-2 rounded-md"
           isLoading={isAdding}
           data-testid="add-product-button"
         >
@@ -174,7 +172,7 @@ export default function ProductActions({
             ? "Select variant"
             : !inStock
             ? "Out of stock"
-            : "Add to cart"}
+            : "Add to bag"}
         </Button>
         <MobileActions
           product={product}

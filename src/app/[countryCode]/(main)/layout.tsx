@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
 }
 
-export default async function PageLayout(props: { children: React.ReactNode }) {
+export default async function PageLayout(props: { children: React.ReactNode, modal: any }) {
   return (
     <>
       <Nav />

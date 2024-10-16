@@ -1,39 +1,64 @@
-import { Image as MedusaImage } from "@medusajs/medusa"
-import { Container } from "@medusajs/ui"
-import Image from "next/image"
+'use client'
+
+import { useState } from 'react'
+import Image from 'next/image'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { Button } from '@modules/layout/components/ui/button'
 
 type ImageGalleryProps = {
-  images: MedusaImage[]
+  images: { id: string; url: string }[]
 }
 
-const ImageGallery = ({ images }: ImageGalleryProps) => {
+export default function ImageGallery({ images }: ImageGalleryProps) {
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  const goToPrevious = () => {
+    setCurrentIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : images.length - 1))
+  }
+
+  const goToNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex < images.length - 1 ? prevIndex + 1 : 0))
+  }
+
   return (
-    <div className="flex items-start relative">
-      <div className="flex flex-col flex-1 small:mx-16 gap-y-4">
-        {images.map((image, index) => {
-          return (
-            <Container
-              key={image.id}
-              className="relative aspect-[29/34] w-full overflow-hidden bg-ui-bg-subtle"
-              id={image.id}
-            >
-              <Image
-                src={image.url}
-                priority={index <= 2 ? true : false}
-                className="absolute inset-0 rounded-rounded"
-                alt={`Product image ${index + 1}`}
-                fill
-                sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"
-                style={{
-                  objectFit: "cover",
-                }}
-              />
-            </Container>
-          )
-        })}
+    <div className="flex gap-4 max-w-4xl mx-auto p-4">
+      <div className="w-20 flex flex-col gap-2 overflow-y-auto max-h-[600px]">
+        {images.map((image, index) => (
+          <div
+            key={image.id}
+            className={`relative w-20 h-20 cursor-pointer ${
+              index === currentIndex ? 'border-2 border-primary' : ''
+            }`}
+            onClick={() => setCurrentIndex(index)}
+          >
+            <Image
+              src={image.url}
+              alt={`Thumbnail ${index + 1}`}
+              fill
+              className="object-cover rounded-md"
+            />
+          </div>
+        ))}
+      </div>
+      <div className="flex-1 flex flex-col">
+        <div className="relative aspect-square mb-4">
+          <Image
+            src={images[currentIndex].url}
+            alt={`Product image ${currentIndex + 1}`}
+            fill
+            className="object-cover rounded-lg"
+            priority
+          />
+        </div>
+        <div className="flex justify-center gap-4">
+          <Button variant="outline" size="icon" onClick={goToPrevious}>
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
+          <Button variant="outline" size="icon" onClick={goToNext}>
+            <ChevronRight className="h-4 w-4" />
+          </Button>
+        </div>
       </div>
     </div>
   )
 }
-
-export default ImageGallery

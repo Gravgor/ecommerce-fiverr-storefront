@@ -1,16 +1,14 @@
-const path = require("path")
+import type { Config } from "tailwindcss";
 
-module.exports = {
-  darkMode: "class",
-  presets: [require("@medusajs/ui-preset")],
-  content: [
-    "./src/app/**/*.{js,ts,jsx,tsx}",
+const config: Config = {
+    darkMode:["class"],
+    content: ["./src/app/**/*.{js,ts,jsx,tsx}",
     "./src/pages/**/*.{js,ts,jsx,tsx}",
     "./src/components/**/*.{js,ts,jsx,tsx}",
     "./src/modules/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/@medusajs/ui/dist/**/*.{js,jsx,ts,tsx}",
-  ],
-  theme: {
+    "./node_modules/@medusajs/ui/dist/**/*.{js,jsx,ts,tsx}"
+],
+theme: {
     extend: {
       transitionProperty: {
         width: "width margin",
@@ -129,12 +127,12 @@ module.exports = {
           },
         },
         enter: {
-          "0%": { transform: "scale(0.9)", opacity: 0 },
-          "100%": { transform: "scale(1)", opacity: 1 },
+          "0%": { transform: "scale(0.9)", opacity: '0' },
+          "100%": { transform: "scale(1)", opacity: '1' },
         },
         leave: {
-          "0%": { transform: "scale(1)", opacity: 1 },
-          "100%": { transform: "scale(0.9)", opacity: 0 },
+          "0%": { transform: "scale(1)", opacity: '1' },
+          "100%": { transform: "scale(0.9)", opacity: '0' },
         },
         "slide-in": {
           "0%": { transform: "translateY(-100%)" },
@@ -160,3 +158,5 @@ module.exports = {
   },
   plugins: [require("tailwindcss-radix")()],
 }
+
+export default config;
