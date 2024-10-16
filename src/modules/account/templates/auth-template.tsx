@@ -175,9 +175,6 @@ export default function AnimatedAuth({ initialView }: Props) {
                     </div>
                   </div>
                   <div>
-                    <Label htmlFor="email" className="sr-only">
-                      Email address
-                    </Label>
                     <div className="relative">
                       <Input
                         id="email"
@@ -193,9 +190,6 @@ export default function AnimatedAuth({ initialView }: Props) {
                     </div>
                   </div>
                   <div>
-                    <Label htmlFor="phone" className="sr-only">
-                      Phone number
-                    </Label>
                     <div className="relative">
                       <Input
                         id="phone"
