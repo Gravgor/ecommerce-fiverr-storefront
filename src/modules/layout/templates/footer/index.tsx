@@ -1,149 +1,75 @@
-import { Text, clx } from "@medusajs/ui"
-
 import { getCategoriesList, getCollectionsList } from "@lib/data"
-
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import MedusaCTA from "@modules/layout/components/medusa-cta"
+import { Github, FileText, Code } from "lucide-react"
 
 export default async function Footer() {
   const { collections } = await getCollectionsList(0, 6)
   const { product_categories } = await getCategoriesList(0, 6)
 
   return (
-    <footer className="border-t border-ui-border-base w-full">
-      <div className="content-container flex flex-col w-full">
-        <div className="flex flex-col gap-y-6 xsmall:flex-row items-start justify-between py-40">
-          <div>
-            <LocalizedClientLink
-              href="/"
-              className="txt-compact-xlarge-plus text-ui-fg-subtle hover:text-ui-fg-base uppercase"
-            >
-              Medusa Store
+    <footer className="border-t border-gray-200 bg-white">
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="md:col-span-2">
+            <LocalizedClientLink href="/" className="text-2xl font-extrabold text-gray-900">
+              Test shop
             </LocalizedClientLink>
+            <p className="mt-2 text-sm text-gray-500">
+              Your one-stop shop for all your needs. Quality products, great prices, and excellent service.
+            </p>
           </div>
-          <div className="text-small-regular gap-10 md:gap-x-16 grid grid-cols-2 sm:grid-cols-3">
-            {product_categories && product_categories?.length > 0 && (
-              <div className="flex flex-col gap-y-2">
-                <span className="txt-small-plus txt-ui-fg-base">
-                  Categories
-                </span>
-                <ul className="grid grid-cols-1 gap-2" data-testid="footer-categories">
-                  {product_categories?.slice(0, 6).map((c) => {
-                    if (c.parent_category) {
-                      return
-                    }
-
-                    const children =
-                      c.category_children?.map((child) => ({
-                        name: child.name,
-                        handle: child.handle,
-                        id: child.id,
-                      })) || null
-
-                    return (
-                      <li
-                        className="flex flex-col gap-2 text-ui-fg-subtle txt-small"
-                        key={c.id}
-                      >
-                        <LocalizedClientLink
-                          className={clx(
-                            "hover:text-ui-fg-base",
-                            children && "txt-small-plus"
-                          )}
-                          href={`/categories/${c.handle}`}
-                          data-testid="category-link"
-                        >
-                          {c.name}
-                        </LocalizedClientLink>
-                        {children && (
-                          <ul className="grid grid-cols-1 ml-3 gap-2">
-                            {children &&
-                              children.map((child) => (
-                                <li key={child.id}>
-                                  <LocalizedClientLink
-                                    className="hover:text-ui-fg-base"
-                                    href={`/categories/${child.handle}`}
-                                    data-testid="category-link"
-                                  >
-                                    {child.name}
-                                  </LocalizedClientLink>
-                                </li>
-                              ))}
-                          </ul>
-                        )}
-                      </li>
-                    )
-                  })}
-                </ul>
-              </div>
-            )}
-            {collections && collections.length > 0 && (
-              <div className="flex flex-col gap-y-2">
-                <span className="txt-small-plus txt-ui-fg-base">
-                  Collections
-                </span>
-                <ul
-                  className={clx(
-                    "grid grid-cols-1 gap-2 text-ui-fg-subtle txt-small",
-                    {
-                      "grid-cols-2": (collections?.length || 0) > 3,
-                    }
-                  )}
-                >
-                  {collections?.slice(0, 6).map((c) => (
-                    <li key={c.id}>
-                      <LocalizedClientLink
-                        className="hover:text-ui-fg-base"
-                        href={`/collections/${c.handle}`}
-                      >
-                        {c.title}
-                      </LocalizedClientLink>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            <div className="flex flex-col gap-y-2">
-              <span className="txt-small-plus txt-ui-fg-base">Medusa</span>
-              <ul className="grid grid-cols-1 gap-y-2 text-ui-fg-subtle txt-small">
-                <li>
-                  <a
-                    href="https://github.com/medusajs"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:text-ui-fg-base"
+          <div>
+            <h3 className="text-sm font-semibold text-gray-900 tracking-wider uppercase">Categories</h3>
+            <ul className="mt-4 space-y-2">
+              {product_categories?.slice(0, 6).map((category) => (
+                <li key={category.id}>
+                  <LocalizedClientLink
+                    href={`/categories/${category.handle}`}
+                    className="text-sm text-gray-600 hover:text-gray-900"
                   >
-                    GitHub
-                  </a>
+                    {category.name}
+                  </LocalizedClientLink>
                 </li>
-                <li>
-                  <a
-                    href="https://docs.medusajs.com"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:text-ui-fg-base"
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h3 className="text-sm font-semibold text-gray-900 tracking-wider uppercase">Collections</h3>
+            <ul className="mt-4 space-y-2">
+              {collections?.slice(0, 6).map((collection) => (
+                <li key={collection.id}>
+                  <LocalizedClientLink
+                    href={`/collections/${collection.handle}`}
+                    className="text-sm text-gray-600 hover:text-gray-900"
                   >
-                    Documentation
-                  </a>
+                    {collection.title}
+                  </LocalizedClientLink>
                 </li>
-                <li>
-                  <a
-                    href="https://github.com/medusajs/nextjs-starter-medusa"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:text-ui-fg-base"
-                  >
-                    Source code
-                  </a>
-                </li>
-              </ul>
-            </div>
+              ))}
+            </ul>
           </div>
         </div>
-        <div className="flex w-full mb-16 justify-between text-ui-fg-muted">
-          <Text className="txt-compact-small">
-            © {new Date().getFullYear()} Medusa Store. All rights reserved.
-          </Text>
+        <div className="mt-8 border-t border-gray-200 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <div className="flex space-x-6 md:order-2">
+            <a href="https://github.com/medusajs" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-gray-500">
+              <span className="sr-only">GitHub</span>
+              <Github className="h-6 w-6" />
+            </a>
+            <a href="https://docs.medusajs.com" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-gray-500">
+              <span className="sr-only">Documentation</span>
+              <FileText className="h-6 w-6" />
+            </a>
+            <a href="https://github.com/medusajs/nextjs-starter-medusa" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-gray-500">
+              <span className="sr-only">Source code</span>
+              <Code className="h-6 w-6" />
+            </a>
+          </div>
+          <p className="mt-8 text-sm text-gray-500 md:mt-0 md:order-1">
+            &copy; {new Date().getFullYear()} Test shop. All rights reserved.
+          </p>
+        </div>
+        <div className="mt-4 flex justify-center">
           <MedusaCTA />
         </div>
       </div>

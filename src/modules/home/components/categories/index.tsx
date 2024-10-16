@@ -29,7 +29,7 @@ export default function ShopByCategory({
 
   return (
     <section className="w-full py-20 bg-white">
-      <div className="container mx-auto px-4 max-w-6xl">
+      <div className="ml-12 max-w-6xl">
         <h2 className="text-4xl md:text-5xl font-bold mb-12 text-black">
           Explore Categories
         </h2>

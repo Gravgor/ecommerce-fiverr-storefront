@@ -1,8 +1,8 @@
 import { Metadata } from "next"
 
 import { getCustomer, listCustomerOrders } from "@lib/data"
-import Overview from "@modules/account/components/overview"
 import { notFound } from "next/navigation"
+import AccountManagement from "@modules/account/components/overview"
 
 export const metadata: Metadata = {
   title: "Account",
@@ -17,5 +17,5 @@ export default async function OverviewTemplate() {
     notFound()
   }
 
-  return <Overview customer={customer} orders={orders} />
+  return <AccountManagement customer={customer} orders={orders} />
 }

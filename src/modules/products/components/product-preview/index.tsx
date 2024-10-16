@@ -5,16 +5,13 @@ import { getProductPrice } from "@lib/util/get-product-price"
 import { Region } from "@medusajs/medusa"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import Thumbnail from "../thumbnail"
-import PreviewPrice from "./price"
 import { Star } from "lucide-react"
 
 export default async function ProductPreview({
   productPreview,
-  isFeatured,
   region,
 }: {
   productPreview: ProductPreviewType
-  isFeatured?: boolean
   region: Region
 }) {
   const pricedProduct = await retrievePricedProductById({
@@ -42,18 +39,17 @@ export default async function ProductPreview({
       href={`/products/${productPreview.handle}`}
       className="group"
     >
-      <div data-testid="product-wrapper" className="flex flex-col space-y-4">
+      <div className="flex flex-col space-y-4">
         <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-200 group-hover:opacity-75 transition-opacity duration-200">
           <Thumbnail
             thumbnail={productPreview.thumbnail}
             size="full"
-            isFeatured={isFeatured}
             className="object-cover object-center"
           />
         </div>
         <div className="flex flex-col space-y-1">
           <Text className="text-sm text-gray-500">{mockBrand}</Text>
-          <Text className="text-base font-medium text-gray-900" data-testid="product-title">
+          <Text className="text-base font-medium text-gray-900 line-clamp-2">
             {productPreview.title}
           </Text>
           <div className="flex items-center">
@@ -72,7 +68,11 @@ export default async function ProductPreview({
           </div>
           <div className="flex items-center justify-between mt-2">
             <div>
-              {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
+              {cheapestPrice && (
+                <Text className="text-base font-medium text-gray-900">
+                  {cheapestPrice.calculated_price}
+                </Text>
+              )}
             </div>
             <Text className="text-sm text-gray-500">{mockVariants} variants</Text>
           </div>

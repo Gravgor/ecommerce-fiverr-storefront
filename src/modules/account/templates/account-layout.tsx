@@ -56,7 +56,7 @@ const AccountLayout: React.FC<AccountLayoutProps> = ({
               variants={contentVariants}
             >
               <motion.div variants={contentVariants}>
-                {customer && <AccountNav customer={customer} />}
+                {customer && <></>}
               </motion.div>
               <motion.div className="flex-1" variants={contentVariants}>
                 {children}

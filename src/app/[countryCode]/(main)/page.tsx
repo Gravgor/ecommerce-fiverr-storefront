@@ -9,9 +9,9 @@ import { cache } from "react"
 import ShopByCategory from "@modules/home/components/categories"
 
 export const metadata: Metadata = {
-  title: "Medusa Next.js Starter Template",
+  title: "Test shop",
   description:
-    "A performant frontend ecommerce starter template with Next.js 14 and Medusa.",
+    "E commerce shop",
 }
 
 export const mockFeaturedProducts = [
@@ -61,7 +61,7 @@ const getCollectionsWithProducts = cache(
   async (
     countryCode: string
   ): Promise<ProductCollectionWithPreviews[] | null> => {
-    const { collections } = await getCollectionsList(0, 3)
+    const { collections } = await getCollectionsList(0, 1)
 
     if (!collections) {
       return null
@@ -109,7 +109,6 @@ export default async function Home({
   if (!collections || !region) {
     return null
   }
-
   const collectionsAll = await getCollectionsList()
 
   return (

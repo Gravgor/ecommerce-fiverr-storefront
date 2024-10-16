@@ -20,13 +20,11 @@ export default function ProductRail({
   }
 
   return (
-    <div className="bg-gray-50 py-16 sm:py-24">
-      <div className="content-container">
+    <div className="bg-white py-16 sm:py-24">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center mb-8">
           <Text className="text-2xl sm:text-3xl font-bold text-gray-900">{collection.title}</Text>
-          <InteractiveLink 
-            href={`/collections/${collection.handle}`}
-          >
+          <InteractiveLink href={`/collections/${collection.handle}`}>
             View all
             <ChevronRight className="ml-1 w-4 h-4" />
           </InteractiveLink>
@@ -37,7 +35,6 @@ export default function ProductRail({
               key={product.id}
               productPreview={product}
               region={region}
-              isFeatured
             />
           ))}
         </div>
