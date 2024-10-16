@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import { CartWithCheckoutStep } from "types/global"
 import Divider from "@modules/common/components/divider"
@@ -56,11 +56,7 @@ export default function SlideCartTemplate({
       <div className="flex flex-col h-full">
         <div className="flex justify-between items-center p-4 border-b">
           <h2 className="text-lg font-semibold">My Cart</h2>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={handleClose}
-          >
+          <Button variant="ghost" size="icon" onClick={handleClose}>
             <X className="h-6 w-6" />
           </Button>
         </div>
@@ -89,17 +85,11 @@ export default function SlideCartTemplate({
                   {(item.unit_price / 100).toFixed(2)} USD
                 </p>
                 <div className="flex items-center mt-2">
-                  <Button
-                    variant="outline"
-                    size="icon"
-                  >
+                  <Button variant="outline" size="icon">
                     <Minus className="h-4 w-4" />
                   </Button>
                   <span className="mx-2">{item.quantity}</span>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                  >
+                  <Button variant="outline" size="icon">
                     <Plus className="h-4 w-4" />
                   </Button>
                 </div>
@@ -110,15 +100,21 @@ export default function SlideCartTemplate({
         <div className="border-t p-4">
           <div className="flex justify-between mb-2">
             <span>Subtotal</span>
-            <span className="font-semibold">
-              {(initialCart.subtotal / 100).toFixed(2)} USD
-            </span>
-          </div>
-          <div className="flex justify-between mb-4">
-            <span className="font-semibold">Total</span>
-            <span className="font-semibold">
-              {(initialCart.total / 100).toFixed(2)} USD
-            </span>
+            <div className="font-semibold">
+              {initialCart?.subtotal !== undefined
+                ? (initialCart.subtotal / 100).toFixed(2)
+                : "0.00"}{" "}
+              USD
+            </div>
+            <div className="flex justify-between mb-4">
+              <span className="font-semibold">Total</span>
+              <span className="font-semibold">
+                {initialCart?.total !== undefined
+                  ? (initialCart.total / 100).toFixed(2)
+                  : "0.00"}{" "}
+                USD
+              </span>
+            </div>
           </div>
           <Button className="w-full bg-black text-white" size="lg">
             Proceed to Checkout
