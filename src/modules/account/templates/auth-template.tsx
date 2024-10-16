@@ -7,7 +7,6 @@ import { logCustomerIn, signUp } from "@modules/account/actions"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import { Button } from "@modules/layout/components/ui/button"
 import { Input } from "@modules/layout/components/ui/input"
-import { Label } from "@modules/layout/components/ui/label"
 import { ArrowRight, Mail, Lock, User, Phone } from "lucide-react"
 
 enum LOGIN_VIEW {
@@ -204,9 +203,6 @@ export default function AnimatedAuth({ initialView }: Props) {
                     </div>
                   </div>
                   <div>
-                    <Label htmlFor="password" className="sr-only">
-                      Password
-                    </Label>
                     <div className="relative">
                       <Input
                         id="password"
