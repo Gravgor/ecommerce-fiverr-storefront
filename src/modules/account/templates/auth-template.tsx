@@ -146,9 +146,6 @@ export default function AnimatedAuth({ initialView }: Props) {
                 <div className="space-y-4">
                   <div className="flex space-x-4">
                     <div className="flex-1">
-                      <Label htmlFor="first_name" className="sr-only">
-                        First name
-                      </Label>
                       <div className="relative">
                         <Input
                           id="first_name"
@@ -163,9 +160,6 @@ export default function AnimatedAuth({ initialView }: Props) {
                       </div>
                     </div>
                     <div className="flex-1">
-                      <Label htmlFor="last_name" className="sr-only">
-                        Last name
-                      </Label>
                       <div className="relative">
                         <Input
                           id="last_name"
