@@ -54,16 +54,14 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
     <main className="max-w-container-sm mx-auto mt-10">
       <div className="grid grid-cols-1 gap-4 md:mx-auto md:max-w-screen-xl md:grid-cols-12 md:gap-8">
         <div className="md:col-span-7">
-          <ImageGallery images={product.images} />
+          <ImageGallery images={product.images !== undefined ? product.images : []} />
         </div>
         <div className="md:col-span-5">
           <div className="sticky top-0 pt-4">
             <div className="flex flex-col gap-y-4">
               <h1 className="text-3xl font-bold">{product.title}</h1>
               <ProductPriceActions product={product} region={region} />
-              <ProductActionsWrapper id={product.id} region={region}>
-                <ProductActions product={product} region={region} />
-              </ProductActionsWrapper>
+              <ProductActionsWrapper id={product.id} region={region} />
               <button className="w-full border border-black py-2 rounded-md flex items-center justify-center gap-2">
                 Favorite <span className="text-xl">♥</span>
               </button>
