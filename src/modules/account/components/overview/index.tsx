@@ -6,9 +6,13 @@ import { Button } from '@modules/layout/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@modules/layout/components/ui/card'
 import { Input } from '@modules/layout/components/ui/input'
 import { Label } from '@modules/layout/components/ui/label'
+import { signOut } from '@modules/account/actions'
+import { useParams } from 'next/navigation'
 
 export default function AccountManagement({ customer, orders }: any) {
   const [activeTab, setActiveTab] = useState('overview')
+  const { countryCode } = useParams() as { countryCode: string }
+
 
   const getProfileCompletion = () => {
     let count = 0
@@ -17,6 +21,10 @@ export default function AccountManagement({ customer, orders }: any) {
     if (customer.phone) count++
     if (customer.billing_address) count++
     return (count / 4) * 100
+  }
+
+  const handleLogout = async () => {
+    await signOut(countryCode)
   }
 
   const renderContent = () => {
@@ -184,7 +192,7 @@ export default function AccountManagement({ customer, orders }: any) {
           >
             <Package className="mr-2 h-4 w-4" /> Orders
           </Button>
-          <Button variant="outline" className="w-full justify-start" onClick={() => console.log('Logout')}>
+          <Button variant="outline" className="w-full justify-start" onClick={handleLogout}>
             <LogOut className="mr-2 h-4 w-4" /> Log out
           </Button>
         </div>
