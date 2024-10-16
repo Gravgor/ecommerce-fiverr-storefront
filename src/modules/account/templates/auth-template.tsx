@@ -81,9 +81,6 @@ export default function AnimatedAuth({ initialView }: Props) {
               <form className="space-y-6" action={loginFormAction}>
                 <div className="space-y-4">
                   <div>
-                    <Label htmlFor="email" className="sr-only">
-                      Email address
-                    </Label>
                     <div className="relative">
                       <Input
                         id="email"
@@ -99,9 +96,6 @@ export default function AnimatedAuth({ initialView }: Props) {
                     </div>
                   </div>
                   <div>
-                    <Label htmlFor="password" className="sr-only">
-                      Password
-                    </Label>
                     <div className="relative">
                       <Input
                         id="password"
