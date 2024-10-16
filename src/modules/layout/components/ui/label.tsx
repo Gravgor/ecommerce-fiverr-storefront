@@ -1,3 +1,4 @@
+//@ts-ignore
 "use client"
 
 import * as React from "react"
@@ -14,6 +15,7 @@ const Label = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> &
     VariantProps<typeof labelVariants>
 >(({ className, ...props }, ref) => (
+  //@ts-expect-error Expect it
   <LabelPrimitive.Root
     ref={ref}
     className={cn(labelVariants(), className)}

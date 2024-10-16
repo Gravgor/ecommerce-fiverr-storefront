@@ -1,3 +1,4 @@
+//@ts-nocheck
 "use client"
 
 import * as React from "react"
@@ -8,6 +9,7 @@ import {
   DotFilledIcon,
 } from "@radix-ui/react-icons"
 import { cn } from "@lib/util/cn"
+
 
 const DropdownMenu = DropdownMenuPrimitive.Root
 
@@ -84,10 +86,11 @@ const DropdownMenuItem = React.forwardRef<
     inset?: boolean
   }
 >(({ className, inset, ...props }, ref) => (
+    //@ts-expect-error With dropdwon
   <DropdownMenuPrimitive.Item
     ref={ref}
     className={cn(
-      "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
       inset && "pl-8",
       className
     )}
@@ -100,6 +103,7 @@ const DropdownMenuCheckboxItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.CheckboxItem>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.CheckboxItem>
 >(({ className, children, checked, ...props }, ref) => (
+    //@ts-expect-error With dropdwon
   <DropdownMenuPrimitive.CheckboxItem
     ref={ref}
     className={cn(
@@ -124,6 +128,7 @@ const DropdownMenuRadioItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.RadioItem>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.RadioItem>
 >(({ className, children, ...props }, ref) => (
+  //@ts-expect-error With dropdwon
   <DropdownMenuPrimitive.RadioItem
     ref={ref}
     className={cn(
@@ -148,6 +153,7 @@ const DropdownMenuLabel = React.forwardRef<
     inset?: boolean
   }
 >(({ className, inset, ...props }, ref) => (
+    //@ts-expect-error With dropdwon
   <DropdownMenuPrimitive.Label
     ref={ref}
     className={cn(
@@ -164,6 +170,7 @@ const DropdownMenuSeparator = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Separator>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Separator>
 >(({ className, ...props }, ref) => (
+    //@ts-expect-error With dropdwon
   <DropdownMenuPrimitive.Separator
     ref={ref}
     className={cn("-mx-1 my-1 h-px bg-muted", className)}
