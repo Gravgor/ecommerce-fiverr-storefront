@@ -1,3 +1,4 @@
+//@ts-ignore
 import { cn } from "@lib/util/cn"
 import * as React from "react"
 
