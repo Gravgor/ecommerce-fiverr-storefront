@@ -43,6 +43,9 @@ theme: {
       },
       maxWidth: {
         "8xl": "100rem",
+        "container-lg": "1440px",
+        "container-md": "1280px",
+        "container-sm": "1024px",
       },
       screens: {
         "2xsmall": "320px",

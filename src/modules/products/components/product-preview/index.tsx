@@ -16,7 +16,6 @@ export default async function ProductPreview({
   productPreview: ProductPreviewType
   region: Region
 }) {
-  console.log(productPreview)
   const pricedProduct = await retrievePricedProductById({
     id: productPreview?.id ?? "",  // Use optional chaining and nullish coalescing operator
     regionId: region?.id ?? "",
