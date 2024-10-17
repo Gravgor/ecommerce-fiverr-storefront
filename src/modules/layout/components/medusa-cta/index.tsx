@@ -1,21 +1,33 @@
-import { Text } from "@medusajs/ui"
 
-import Medusa from "../../../common/icons/medusa"
-import NextJs from "../../../common/icons/nextjs"
+import { Button } from "../ui/button"
+import { Input } from "../ui/input"
+import { Label } from "../ui/label"
 
-const MedusaCTA = () => {
+export function CallToAction() {
   return (
-    <Text className="flex gap-x-2 txt-compact-small-plus items-center">
-      Powered by
-      <a href="https://www.medusajs.com" target="_blank" rel="noreferrer">
-        <Medusa fill="#9ca3af" className="fill-[#9ca3af]" />
-      </a>
-      &
-      <a href="https://nextjs.org" target="_blank" rel="noreferrer">
-        <NextJs fill="#9ca3af" />
-      </a>
-    </Text>
+    <div className="border-y border-black">
+      <div className="max-w-container-md container mx-auto my-0 w-full px-4 py-16 xl:px-0">
+        <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-2">
+          <div>
+            <p className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Become a member and receive our special discounts.</p>
+          </div>
+          <div>
+            <form className="ml-0 flex max-w-md flex-col gap-4 md:ml-auto">
+              <Label>
+                <span className="sr-only">Name</span>
+                <Input placeholder="Name" />
+              </Label>
+              <Label>
+                <span className="sr-only">Email</span>
+                <Input placeholder="Email" type="email" />
+              </Label>
+              <Button size="lg" className="w-fit bg-black text-center text-white">
+                Become a Member
+              </Button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
-
-export default MedusaCTA

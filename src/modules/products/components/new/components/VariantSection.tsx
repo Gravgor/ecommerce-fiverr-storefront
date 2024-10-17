@@ -9,11 +9,8 @@ import { useEffect, useMemo, useRef, useState } from "react"
 
 import { useIntersection } from "@lib/hooks/use-in-view"
 import { addToCart } from "@modules/cart/actions"
-import Divider from "@modules/common/components/divider"
 import OptionSelect from "@modules/products/components/option-select"
-
-import MobileActions from "../mobile-actions"
-import ProductPrice from "../product-price"
+import { cn } from "@lib/util/cn"
 
 type ProductActionsProps = {
   product: PricedProduct
@@ -164,7 +161,7 @@ export default function ProductActions({
           onClick={handleAddToCart}
           disabled={!inStock || !variant || !!disabled || isAdding}
           variant="primary"
-          className="w-full bg-black text-white py-3 rounded-md mb-4"
+          className={cn("mx-auto w-full rounded-md p-10 py-4 transition-all hover:scale-105 md:w-full md:rounded-md md:py-4")}
           isLoading={isAdding}
           data-testid="add-product-button"
         >
@@ -174,18 +171,6 @@ export default function ProductActions({
             ? "Out of stock"
             : "Add to bag"}
         </Button>
-        <MobileActions
-          product={product}
-          variant={variant}
-          region={region}
-          options={options}
-          updateOptions={updateOptions}
-          inStock={inStock}
-          handleAddToCart={handleAddToCart}
-          isAdding={isAdding}
-          show={!inView}
-          optionsDisabled={!!disabled || isAdding}
-        />
         </div>
     </>
   )

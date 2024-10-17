@@ -9,7 +9,7 @@ import {
   retrievePricedProductById,
 } from "@lib/data"
 import { Region } from "@medusajs/medusa"
-import ProductTemplate from "@modules/products/templates"
+import NewProductTemplate from "@modules/products/components/new"
 
 type Props = {
   params: { countryCode: string; handle: string }
@@ -97,7 +97,7 @@ export default async function ProductPage({ params }: Props) {
   }
 
   return (
-    <ProductTemplate
+    <NewProductTemplate
       product={pricedProduct}
       region={region}
       countryCode={params.countryCode}

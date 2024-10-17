@@ -25,7 +25,7 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
 
   return (
     <div className="flex flex-col gap-y-3">
-      <span className="text-sm">Select {title}</span>
+      <span className="font-normal text-gray-500">Select {title.toLocaleLowerCase()}</span>
       <div
         className="flex flex-wrap gap-2"
         data-testid={dataTestId}
@@ -37,11 +37,10 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
               onClick={() => updateOption({ [option.id]: v })}
               key={v}
               className={clx(
-                "px-4 py-2 border rounded-md transition-all ease-in-out duration-300",
+                "relative flex h-[40px] min-w-[80px] cursor-pointer items-center justify-center border border-black bg-white p-1.5 text-[11px] uppercase transition-colors hover:bg-neutral-800 hover:text-white",
                 {
-                  "bg-black text-white border-black": isSelected,
-                  "border-ui-border-base hover:bg-gray-100": !isSelected,
-                  "hover:shadow-elevation-card-rest": !isSelected && !disabled,
+                  "bg-neutral-800 text-white": isSelected,
+                  "stroke-black opacity-80 hover:bg-transparent hover:text-black": !isSelected,
                 }
               )}
               disabled={disabled}

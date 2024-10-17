@@ -2,6 +2,7 @@ import { Region } from "@medusajs/medusa"
 
 import ProductRail from "@modules/home/components/featured-products/product-rail"
 import { ProductCollectionWithPreviews } from "types/global"
+import ProductRailWrapper from "./product-rail/product-rail-wrapper"
 
 export default async function FeaturedProducts({
   collections,
@@ -11,8 +12,6 @@ export default async function FeaturedProducts({
   region: Region
 }) {
   return collections.map((collection) => (
-    <li key={collection.id}>
       <ProductRail collection={collection} region={region} />
-    </li>
   ))
 }
